@@ -1,0 +1,51 @@
+import random
+name = input("What is your name? ")
+print("\n" + name + ", let's play hangman." + "\n")
+wordlist = ["slogan", "football", "predict", "mushroom", "safe", "advance", "smoke", "unique", "solid", "satisfied", "set", "revolution", "shake", "lump", "archive", "angle", "slip", "satellite", "tread", "mind", "calendar", "horn", "chimpanzee", "refrigerator", "rate", "herb", "heaven", "tournament", "sickness", "victory", "trivial", "bed", "legend", "theory", "admire"]
+word = random.choice(wordlist)
+life = 7
+letterlist = []
+letterlist2 = []
+guess = ""
+guess2 = ""
+Guess = []
+count = 0
+for char in word:
+    guess = guess + " _"
+for char in word:
+    Guess.append("_")
+print(guess)
+while life != 0 and guess2 != word:
+    letter = input("\nChoose a letter: ")
+    if letter not in word:
+        if not len(letterlist):
+            life -= 1
+            letterlist.append(letter)  
+        elif letter not in letterlist:
+            life -= 1
+            letterlist.append(letter)
+        else:
+            letter = input("\nChoose a letter: ")
+    else:
+        guess = ""
+        guess2 = ""
+        count = 0
+        for char in word:
+            if char == letter:
+                Guess.pop(count)
+                Guess.insert(count, letter)
+            count += 1
+        for char in Guess:
+            guess = guess + char + " "
+        for char in Guess:
+            guess2 = guess2 + char
+        print("\n" + guess)
+        letterlist.append(letter)
+else:
+    if guess2 == word:
+        if life == 1:
+            print("\nYou Win! You have 1 life remaining.")
+        else:
+            print("\nYou Win! You have " + str(life) + " lives remaining.")
+    else:
+        print("\nYou Lose. The word is " + word)
